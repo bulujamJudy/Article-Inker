@@ -132,5 +132,5 @@
 {"cell_type":"markdown","id":"f45aae","input":"This can get quite annoying with longer variable names, so we can do the following","pos":12,"type":"cell"}
 {"cell_type":"markdown","id":"fc5fd3","input":"To access a specific item from the list, you would do the following.","pos":25,"type":"cell"}
 {"cell_type":"markdown","id":"fe3d31","input":"First, we'll have to import it. It is common practice to import pandas as pd but you are free to import it as you see fit.","pos":100,"type":"cell"}
-{"id":0,"time":1654805100058,"type":"user"}
-{"last_load":1654708503713,"type":"file"}
+{"id":0,"time":1655157970917,"type":"user"}
+{"last_load":1655141271722,"type":"file"}
