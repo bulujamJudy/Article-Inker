@@ -1,16 +1,3 @@
-# Run by typing python3 main.py
-
-# **IMPORTANT:** only collaborators on the project where you run
-# this can access this web server!
-
-"""
-    Bonus points if you want to have internship at AI Camp
-    1. How can we save what user built? And if we can save them, like allow them to publish, can we load the saved results back on the home page? 
-    2. Can you add a button for each generated item at the frontend to just allow that item to be added to the story that the user is building? 
-    3. What other features you'd like to develop to help AI write better with a user?
-    4. How to speed up the model run? Quantize the model? Using a GPU to run the model?
-"""
-
 # import basics
 import os
 
@@ -21,17 +8,10 @@ from markupsafe import Markup
 # import stuff for our models
 from aitextgen import aitextgen
 
-# load up a model from memory. Note you may not need all of these options.
-# ai = aitextgen(model_folder="model/",
-#                tokenizer_file="model/aitextgen.tokenizer.json", to_gpu=False)
-
 ai = aitextgen(model="distilgpt2", to_gpu=False)
 
 
-
-# setup the webserver
-# port may need to be changed if there are multiple flask servers running on same server
-port = 12345
+port = 5500
 base_url = get_base_url(port)
 
 
@@ -39,7 +19,7 @@ base_url = get_base_url(port)
 if base_url == '/':
     app = Flask(__name__)
 else:
-    app = Flask(__name__, static_url_path=base_url+'static')
+    app = Flask(__name__, template_folder = 'templates', static_url_path=base_url+'static')
 
 app.secret_key = os.urandom(64)
 
@@ -59,7 +39,7 @@ def genre_text_generation(genre_type):
 
 @app.route(f'{base_url}')
 def home():
-    return render_template('index.html', ans=None)
+    return render_template('index.html')
 
 
 @app.route(f'{base_url}', methods=['POST'])
@@ -145,16 +125,9 @@ def generate_text():
     session['data'] = generated[0]
     return redirect(url_for('results'))
 
-# define additional routes here
-# for example:
-# @app.route(f'{base_url}/about')
-# def team_members():
-#     return render_template('about') # would need to actually make this page
-
 
 if __name__ == '__main__':
-    # IMPORTANT: change url to the site where you are editing this file.
-    website_url = 'cocalc20.ai-camp.dev'
+    website_url = '127.0.0.1:5500'
 
-    print(f'Try to open\n\n    https://{website_url}' + base_url + '\n\n')
-    app.run(host='0.0.0.0', port=port, debug=True)
+    print(f'Try to open\n\n    http://{website_url}' + base_url + '\n\n')
+    app.run(host='127.0.0.1', port=port, debug=True)
